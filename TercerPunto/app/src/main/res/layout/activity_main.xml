@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="326dp"
+        android:layout_height="wrap_content"
+        android:layout_x="63dp"
+        android:layout_y="30dp"
+        android:text="Bienvenido usuario, presione uno de los dos botones :"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/bGestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="75dp"
+        android:layout_y="180dp"
+        android:text="Gestionar " />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="102dp"
+        android:layout_height="wrap_content"
+        android:layout_x="78dp"
+        android:layout_y="243dp"
+        android:autoText="false"
+        android:gravity="center_horizontal"
+        android:text="Gestionar información del paquete" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="86dp"
+        android:layout_height="wrap_content"
+        android:layout_x="251dp"
+        android:layout_y="240dp"
+        android:gravity="center_horizontal"
+        android:text="Calcular el costo del paquete" />
+
+    <Button
+        android:id="@+id/bCalcular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_x="249dp"
+        android:layout_y="178dp"
+        android:text="Calcular" />
+
+</AbsoluteLayout>
