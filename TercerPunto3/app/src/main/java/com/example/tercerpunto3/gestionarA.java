@@ -1,5 +1,6 @@
 package com.example.tercerpunto3;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentValues;
@@ -75,20 +76,25 @@ public class gestionarA extends AppCompatActivity {
     }
 
     public void insertar (View view){
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "administracion", null, 1);
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "paquetes", null, 1);
         SQLiteDatabase bd = admin.getWritableDatabase();
         String nombrePBD = nombreP.getText().toString();
         String pesoBD = peso.getText().toString();
         String continenteBD = continente.getText().toString();
         String costoBD = costoE.getText().toString();
         String codigoBD = codigoG.getText().toString();
+        String spais = options.getSelectedItem().toString();
+      /*  int coding = Integer.parseInt(codigoBD);
+        int pesing = Integer.parseInt(pesoBD);
+        int costing = Integer.parseInt(costoBD);*/
         ContentValues registro = new ContentValues();
-        registro.put("codigo", codigoBD);
+        registro.put("numero", codigoBD);
         registro.put("nombreP",nombrePBD);
-        registro.put("continente",pesoBD);
-        registro.put("pais",continenteBD);
+        registro.put("peso",pesoBD);
+        registro.put("continente",continenteBD);
+        registro.put("pais",spais);
         registro.put("costoE",costoBD);
-        bd.insert("envios",null,registro);
+        bd.insert("paquetes",null,registro);
         bd.close();
         peso.setText("");
         nombreP.setText("");
@@ -100,21 +106,82 @@ public class gestionarA extends AppCompatActivity {
     }
 
     public void consultar (View view){
-        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "envios", null, 1);
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "paquetes", null, 1);
         SQLiteDatabase bd = admin.getWritableDatabase();
-        String code = codigoG.getText().toString();
-        int codigoB = Integer.parseInt(code);
-        String nombrePBD = nombreP.getText().toString();
-        Cursor fila = bd.rawQuery("select nombreP, peso, continente, pais, costoE from envios where codigo=" + 12, null);
-        if (fila.moveToFirst()){
-                peso.setText(fila.getString(0));
-                continente.setText(fila.getString(1));
-                Pais.setText(fila.getString(2));
-                costoE.setText(fila.getString(3));
-        }
-        else
-            Toast.makeText(this, "No existe tal envio", Toast.LENGTH_SHORT);
-        bd.close();
+        String coding = codigoG.getText().toString();
 
+        Cursor fila =bd.rawQuery("select nombreP, peso, continente, pais, costoE from paquetes where numero =" + coding, null);
+        if (fila.moveToFirst()){
+            nombreP.setText(fila.getString(0));
+            peso.setText(fila.getString(1));
+            continente.setText(fila.getString(2));
+            Pais.setText(fila.getString(3));
+            costoE.setText(fila.getString(4));
+        }else
+            Toast.makeText(this, "No existe tal paquete", Toast.LENGTH_SHORT);
+        bd.close();
+    }
+    public void eliminar (View view){
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "paquetes", null, 1);
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        String coding = codigoG.getText().toString();
+        int cant = bd.delete("paquetes", "numero=" + coding, null );
+        bd.close();
+        nombreP.setText("");
+        peso.setText("");
+        continente.setText("");
+        Pais.setText("");
+        costoE.setText("");
+        if (cant ==1){
+            Toast.makeText(this, "Se borro el paquete", Toast.LENGTH_SHORT).show();
+        }else
+            Toast.makeText(this, "No existe tal paquete", Toast.LENGTH_SHORT).show();
+    }
+    public void modificar (View view){
+
+        AdminSQLiteOpenHelper admin = new AdminSQLiteOpenHelper(this, "paquetes", null, 1);
+        SQLiteDatabase bd = admin.getWritableDatabase();
+        String nombrePBD = nombreP.getText().toString();
+        String pesoBD = peso.getText().toString();
+        peso.setEnabled(true);
+        String continenteBD = continente.getText().toString();
+        continente.setEnabled(true);
+        String costoBD = costoE.getText().toString();
+        costoE.setEnabled(true);
+        String codigoBD = codigoG.getText().toString();
+        String spais = options.getSelectedItem().toString();
+        ContentValues registro = new ContentValues();
+        registro.put("numero", codigoBD);
+        registro.put("nombreP",nombrePBD);
+        registro.put("peso",pesoBD);
+        registro.put("continente",continenteBD);
+        registro.put("pais",spais);
+        registro.put("costoE",costoBD);
+
+        if(pesoBD != peso.getText().toString()){
+                String peso = pesoBD;
+                double ppeso = Double.parseDouble(peso);
+                if (ppeso > 5 )alerta("Los productos no pueden ser transportados debido a su peso mayor a 5 Kg");
+
+        }
+
+        int cant = bd.update("paquetes", registro, "numero=" + codigoBD, null);
+        bd.close();
+        if (cant == 1){
+            Toast.makeText(this, "Se modificaron los datos", Toast.LENGTH_SHORT).show();
+        }else
+            Toast.makeText(this, "No existe tal paquete", Toast.LENGTH_SHORT).show();
+        nombreP.setText("");
+        peso.setText("");
+        continente.setText("");
+        costoE.setText("");
+        codigoG.setText("");
+        options.getSelectedItem().toString();
+    }
+    public void alerta(String cadena) {
+        AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(this);
+        dialogbuilder.setMessage(cadena);
+        dialogbuilder.setCancelable(true).setTitle("Paquetería ");
+        dialogbuilder.create().show();
     }
 }

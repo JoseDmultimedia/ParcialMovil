@@ -40,7 +40,6 @@
         android:layout_x="46dp"
         android:layout_y="163dp"
         android:ems="10"
-        android:enabled="false"
         android:inputType="textPersonName" />
 
     <TextView
@@ -108,6 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_x="213dp"
         android:layout_y="494dp"
+        android:onClick="eliminar"
         android:text="Eliminar" />
 
     <Button
@@ -116,6 +116,7 @@
         android:layout_height="wrap_content"
         android:layout_x="102dp"
         android:layout_y="562dp"
+        android:onClick="modificar"
         android:text="Modificar" />
 
     <Button

@@ -62,14 +62,15 @@ public class calcularA extends AppCompatActivity {
                 operacion = String.valueOf(op);
                 alerta(operacion);
             }
+            Intent i = new Intent(calcularA.this, gestionarA.class);
+            i.putExtra("peso", peso + "");
+            i.putExtra("operacion",  operacion +"");
+            i.putExtra("select", select +"");
+            i.putExtra("codigo", codigoP + "");
+            startActivity(i);
         } else alerta("Los productos no pueden ser transportados debido a su peso mayor a 5 Kg");
 
-        Intent i = new Intent(calcularA.this, gestionarA.class);
-        i.putExtra("peso", peso + "");
-        i.putExtra("operacion",  operacion +"");
-        i.putExtra("select", select +"");
-        i.putExtra("codigo", codigoP + "");
-        startActivity(i);
+
     }
 
     public void alerta(String cadena) {

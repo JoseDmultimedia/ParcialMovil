@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_x="97dp"
         android:layout_y="157dp"
-        android:text="Presiona alguno de los dos animal"
+        android:text="Presiona alguno de los dos botones"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
